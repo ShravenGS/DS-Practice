@@ -1,45 +1,44 @@
 #include<stdio.h>
 #include<stdlib.h>
-struct st{
-	int roll;
-	char name[50];
-	int marks;
-
-	struct st *next;
+struct node{
+        int data;
+        struct node *next;
 };
-struct st *hptr=0;
+struct node *head=NULL;
+//In this we will be adding a function for allocating a memory in heap section
+//When we add the data,we will be pointing towards structure data part
+//And head will be zero initially and then we will pointing to the existing address of newnode
 void add_begin(){
-	struct st *temp=(struct st*)malloc(sizeof(struct st));
-	printf("Enter the data:\n");
-	scanf("%d %s %d",&temp->roll,temp->name,&temp->marks);
+        struct node  *newnode=(struct node *)malloc(sizeof(struct node));
+        if(newnode==NULL){
+                printf("Memeory not allocated");
+                return;
+        }
 
-	temp->next=hptr;
-	hptr=temp;
+        printf("Enter the data:");
+        scanf("%d",&newnode->data);
+        newnode->next=head;
+        head=newnode;
 }
+//In this we will be printing the datas using *temp which we will mae that to include in struct part
+//And then the datas will be printed from the starting till the data part is present but address part is null
+//But we should point towards next pointer in struct so that it will iterate and if prints also it will be in reverse order
 void print(){
-	struct st *ptr=hptr;
-	printf("\n--------------Strudent records-------------------\n");
-	while(ptr!=0){
-		printf("%d %s %d\n",ptr->roll,ptr->name,ptr->marks);
-		ptr=ptr->next;
-	}
-}
-void save(){
-	struct st *ptr=hptr;
-	FILE *fp=fopen("data.txt","w");
-	while(ptr!=0){
-	fprintf(fp, "%d %s %d\n",ptr->roll,ptr->name,ptr->marks);
-	ptr=ptr->next;
-	}
+        struct node *temp=head;
+        printf("Printing the elements");
+        while(temp!=0){
+                printf("%d ",temp->data);
+                temp=temp->next;
+        }
 }
 int main(){
-	char op;
-	do{
-		add_begin();
-		printf("Do you want to add the student record:");
-		scanf(" %c",&op);
-	}while(op=='Y'||op=='y');
-	print();
-	save();
-return 0;
+        int choice;
+        do{
+                add_begin();
+                printf("Do you want to add more(0/1)?");
+                scanf("%d",&choice);
+        }while(choice==1);
+
+        print();
+
 }
