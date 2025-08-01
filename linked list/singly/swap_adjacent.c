@@ -7,6 +7,35 @@ struct node{
 };
 
 struct node *head=NULL;
+
+void add_end(){
+	struct node *temp,*newNode;
+	int data;
+	newNode=(struct node*)malloc(sizeof(struct node));
+	if(newNode==NULL){
+		printf("Memeory not allocated");
+		return;
+	}
+	printf("Enter the data");
+	scanf("%d",&data);
+	newNode->data=data;
+	newNode->next=NULL;
+
+	if(head==NULL){
+		head=newNode;
+	}
+
+	else{
+		temp=head;
+
+		while(temp->next!=NULL){
+			temp=temp->next;
+		}
+		temp->next=newNode;
+	}
+}
+
+
 void swap_adjacent_nodes(){
 	if(head==NULL||head->next==NULL){
 		return;
