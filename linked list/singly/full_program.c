@@ -121,28 +121,6 @@ void reverse_link(){
 head=prev;
 }
 
-
-void swap_adjacent_nodes(){
-	if(head==NULL||head->next==NULL){
-		return;
-	}
-	struct node *prev=NULL,*curr=head;
-	head=head->next;
-	while(curr!=NULL&&curr->next!=NULL){
-		struct node *next=curr->next;
-		struct node *nextNext=next->next;
-
-		next->next=curr;
-		curr->next=nextNext;
-		if(prev!=NULL){
-			prev->next=next;
-		}
-
-		prev=curr;
-		curr=curr->next;
-	}
-}
-
 void delete_all(){
 	struct node *temp=head;
 	while(temp!=NULL){
@@ -210,10 +188,8 @@ int main(){
 	reverse_link();
 	display();
 	printf("\n");
-	swap_adjacent_nodes();
-	display();
 	//delete_all();
-	printf("\n");
+	//printf("\n");
 	delete_duplicate();
 	display();
 	printf("\n");
